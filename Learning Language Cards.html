@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning Flashcards</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Language Learning Flashcards</h1>
+    </header>
+    <main>
+        <div class="flashcard" id="flashcard">
+            <div class="card-front" id="card-front">Hello</div>
+            <div class="card-back" id="card-back">Hola</div>
+        </div>
+        <div class="controls">
+            <button id="prev-btn">Previous</button>
+            <button id="flip-btn">Flip</button>
+            <button id="next-btn">Next</button>
+            <button id="random-btn">Random</button>
+        </div>
+    </main>
+    <style>
+        body {
+        
+            font-family: Arial, sans-serif;
+              margin: 0;
+             display: flex;
+          flex-direction: column;
+          align-items: center;
+             justify-content: center;
+           min-height: 100vh;
+            background: #c7ec3f;
+
+        }
+      header {
+        text-align: center;
+    margin-bottom: 20px;
+      }
+
+      header h1 {
+        font-size: 2rem;
+        color: #444;
+      }
+    
+      .flashcard {
+    width: 300px;
+    height: 200px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 20px;
+    perspective: 1000px;
+    text-align: center;
+    position: relative;
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+} 
+.card-front {
+    background: #4caf50;
+    color: white;
+}
+
+.card-back {
+    background: #2196f3;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.flashcard.flipped .card-front {
+    transform: rotateY(180deg);
+}
+
+.flashcard.flipped .card-back {
+    transform: rotateY(0);
+}.controls {
+    display: flex;
+    gap: 10px;
+}
+
+.controls button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+
+#prev-btn {
+    background: #f44336;
+}
+
+#flip-btn {
+    background: #ff9800;
+}
+
+#next-btn {
+    background: #4caf50;
+}
+
+#random-btn {
+    background: #9c27b0;
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #777;
+}
+</style> 
+
+
+<script> 
+// Flashcard Data
+const flashcards = [
+    { front: "Hello", back: "Hola" },
+    { front: "Thank you", back: "Gracias" },
+    { front: "Goodbye", back: "Adiós" },
+    { front: "Please", back: "Por favor" },
+    { front: "Yes", back: "Sí" },
+    { front: "No", back: "No" }
+];
+
+let currentIndex = 0;
+
+// DOM Elements
+const flashcard = document.getElementById('flashcard');
+const cardFront = document.getElementById('card-front');
+const cardBack = document.getElementById('card-back');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const flipBtn = document.getElementById('flip-btn');
+const randomBtn = document.getElementById('random-btn');
+
+// Display Flashcard
+function displayFlashcard(index) {
+    cardFront.textContent = flashcards[index].front;
+    cardBack.textContent = flashcards[index].back;
+    flashcard.classList.remove('flipped');
+}
+
+// Flip Card
+flipBtn.addEventListener('click', () => {
+    flashcard.classList.toggle('flipped');
+});
+
+// Next Card
+nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % flashcards.length;
+    displayFlashcard(currentIndex);
+});
+
+// Previous Card
+prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+    displayFlashcard(currentIndex);
+});
+
+// Random Card
+randomBtn.addEventListener('click', () => {
+    currentIndex = Math.floor(Math.random() * flashcards.length);
+    displayFlashcard(currentIndex);
+});
+
+// Initialize with the first card
+displayFlashcard(currentIndex);
+
+
+</script>
+
+</body>
+</html>
